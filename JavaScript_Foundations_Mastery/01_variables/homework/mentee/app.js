@@ -26,7 +26,8 @@
 const fullName = "John Doe";
 const age = 36;
 let city = "montreal";
-let isStudent = true // fullName won't change, so I used const
+let isStudent = true
+let country = "Canada" // fullName won't change, so I used const
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
 // ----------------------------------------------------------

@@ -23,6 +23,7 @@
 //
 // Log all four to the console.
 
+const fullName = "John Doe"; // fullName won't change, so I used const
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
 // ----------------------------------------------------------

@@ -37,6 +37,16 @@
 //
 // Log: "🛒 " + storeName + " — Cart started"
 
+const storeName = "QuickShop";
+const budget = 100;
+const itemLimit = 30;
+const discountThreshold = 80;
+const discountRate = 0.10;
+let cartTotal = 0;
+let itemsAdded = 0;
+let itemsSkipped = 0;
+
+console.log(`🛒 ${storeName} - Cart started`);
 // ----------------------------------------------------------
 // TASK 2 — Declare your item prices
 // ----------------------------------------------------------
@@ -47,6 +57,14 @@
 //   item4Price → 8
 //   item5Price → 42
 //   item6Price → 28
+
+const item1Price = 29;
+const item2Price = 35;
+const item3Price = 16;
+const item4Price = 8;
+const item5Price = 42;
+const item6Price = 28;
+
 
 // ----------------------------------------------------------
 // TASK 3 — Loop through the items
@@ -67,6 +85,41 @@
 //     - increment itemsAdded using ++
 //     - log: "✅ Item " + i + " added ($" + currentPrice + ") | Cart: $" + cartTotal
 
+for (let i = 1; i <= 6; i++) {
+    let currentPrice;
+    if (i === 1) {
+        currentPrice = item1Price; // currentPrice now for item1Price is 22
+    } else if (i === 2) {
+        currentPrice = item2Price; // currenPrice for item2 is now 35
+    } else if (i === 3) {
+        currentPrice = item3Price;
+    } else if (i === 4) {
+        currentPrice = item4Price;
+    } else if (i === 5){
+        currentPrice = item5Price;    
+    } else if (i === 6) {
+        currentPrice = item6Price;
+    }
+
+    if (currentPrice > itemLimit){
+        console.log(`⛔ Item ${i} $${currentPrice} exceeds limit of $${itemLimit}`
+
+        );
+        itemsSkipped++;
+        continue;
+    }
+
+    cartTotal += currentPrice;
+    itemsAdded++;
+    console.log(`Item ${i} added $${currentPrice} | Cart: $${cartTotal}`);
+}
+
+
+// Our max allowed price is 30.
+// The current item costs 22
+// The cart currently has 22
+// Add the item to the cart to show 1 item
+
 // ----------------------------------------------------------
 // TASK 4 — Apply the discount (after the loop)
 // ----------------------------------------------------------
@@ -80,6 +133,15 @@
 //   ELSE:
 //     - log: "No discount applied. Total: $" + cartTotal
 
+if (cartTotal > discountThreshold) {
+    const discountAmount = cartTotal * discountRate;
+    cartTotal -= discountAmount;
+    console.log(`🏷️ Discount applied: -$${discountAmount}`);
+    console.log(`💰 Total after discount: $${cartTotal}`);
+} else {
+    console.log(`No discount applied. Total: $${cartTotal}`);
+}
+
 // ----------------------------------------------------------
 // TASK 5 — Budget check
 // ----------------------------------------------------------
@@ -89,6 +151,11 @@
 //   ELSE:
 //     log: "❌ Over budget by $" + (cartTotal - budget)
 
+if (cartTotal <= budget){
+    console.log(`✅ Within budget! Total: $${cartTotal} / $${budget}`);
+} else {
+    console.log(`❌ Over budget by $${cartTotal - budget}`);
+}
 // ----------------------------------------------------------
 // TASK 6 — Cart summary
 // ----------------------------------------------------------
@@ -96,6 +163,10 @@
 //   "📦 Items added:   " + itemsAdded
 //   "🚫 Items skipped: " + itemsSkipped
 //   "🛒 Final total:   $" + cartTotal
+
+console.log(`📦Items added: ${itemsAdded}`);
+console.log(`🚫Items skipped: ${itemsSkipped}`);
+console.log(`🛒Final total: $${cartTotal}`);
 
 // ----------------------------------------------------------
 // TASK 7 — while loop: restock counter

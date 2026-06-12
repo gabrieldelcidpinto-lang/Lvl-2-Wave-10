@@ -25,10 +25,14 @@
 
 const fullName = "John Doe";
 const age = 36;
-let city = "montreal";
-let isStudent = true
-let country = "Canada" 
-const car = toyota// fullName won't change, so I used const
+let city = "Montreal";
+let isStudent = true;
+
+console.log(fullName);
+console.log(age);
+console.log(city);
+console.log(isStudent);
+
 // ----------------------------------------------------------
 // TASK 2 — Update what can change
 // ----------------------------------------------------------
@@ -39,6 +43,11 @@ const car = toyota// fullName won't change, so I used const
 // Then try to reassign fullName.
 // Read the error, then comment that line out.
 
+city = "Santiago";
+isStudent = false;
+
+console.log(city);
+console.log(isStudent);
 // ----------------------------------------------------------
 // TASK 3 — Undefined in the wild
 // ----------------------------------------------------------
@@ -48,6 +57,11 @@ const car = toyota// fullName won't change, so I used const
 // Now assign it a movie title.
 // Log it again.
 
+let favoriteMovie;
+console.log(favoriteMovie); // will give me the following "undefined"
+
+favoriteMovie = "Coach Carter";
+console.log(favoriteMovie);
 // ----------------------------------------------------------
 // TASK 4 — Build a product listing
 // ----------------------------------------------------------
@@ -62,6 +76,18 @@ const car = toyota// fullName won't change, so I used const
 // Log each variable on its own line.
 // Then log: productName + " by " + productBrand + " — $" + productPrice
 
+const productName = "vrbls";
+const productBrand = "wave10";
+const productPrice = 99;
+let inStock = true;
+
+console.log(productName);
+console.log(productBrand);
+console.log(productPrice);
+console.log(inStock);
+
+console.log(productName + " by " + productBrand + " - $" + productPrice);
+
 // ----------------------------------------------------------
 // TASK 5 — Stock status update
 // ----------------------------------------------------------
@@ -73,6 +99,12 @@ const car = toyota// fullName won't change, so I used const
 // Why did this fail but inStock worked?
 // Write your answer as a comment.
 
+inStock = false;
+
+console.log("In stock: " + inStock);
+
+// productName = "oprtrs"; => this fails because you cannot reassing a const variable.
+
 // ----------------------------------------------------------
 // TASK 6 — Fix the bad names
 // ----------------------------------------------------------
@@ -83,6 +115,16 @@ const car = toyota// fullName won't change, so I used const
 //   my score      → fix it
 //   X             → rename to something descriptive, then declare it
 //   GaMeLeVeL     → fix the casing
+
+const secondPlayer = "Alice";
+let myScore = 200;
+const playerX = "Bob";
+let gameLevel = 3;
+
+console.log(secondPlayer);
+console.log(myScore);
+console.log(playerX);
+console.log(gameLevel);
 
 // ----------------------------------------------------------
 // TASK 7 — Two-step declaration
@@ -98,6 +140,15 @@ const car = toyota// fullName won't change, so I used const
 //
 // You should see three console lines: undefined → 500 → 750
 
+let highScore;
+console.log(highScore);
+
+highScore = 500;
+console.log(highScore);
+
+highScore = 750;
+console.log(highScore);
+
 // ----------------------------------------------------------
 // TASK 8 — Connect the variables
 // ----------------------------------------------------------
@@ -108,6 +159,12 @@ const car = toyota// fullName won't change, so I used const
 //
 // Log: appName + " v" + version + " — built by " + authorName
 // Expected format: "TaskMaster v3 — built by [your name]"
+
+const appName = "TaskMaster";
+const version = 3;
+const authorName = "Gabriel Del Cid Pinto";
+
+console.log(appName + " v " + version + " - built by " + authorName);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL
@@ -121,3 +178,9 @@ const car = toyota// fullName won't change, so I used const
 // Then reassign currentYear... wait, can you? Why not?
 // Write the answer as a comment.
 // What keyword would you need if currentYear could change?
+
+const startYear = 2020;
+const currentYear = 2026;
+let yearsRunning = currentYear - startYear;
+
+console.log(appName + " has been running for " + yearsRunning + " years.");

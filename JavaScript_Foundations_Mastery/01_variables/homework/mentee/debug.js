@@ -12,29 +12,40 @@
 // ----------------------------------------------------------
 // This throws an error. What's wrong and how do you fix it?
 
-const storeName = "TechMart";
-storeName = "MegaShop";
-console.log(storeName);
+//const storeName = "TechMart";
+//storeName = "MegaShop";
+//console.log(storeName);
 
 // What's wrong ↓
 
+//You cannot reassign a const Variable.
+
 // Your fix ↓
 
+let storeName = "TechMart";
+storeName = "MegaShop";
+console.log(storeName);
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium
 // ----------------------------------------------------------
 // This runs but the output is wrong. Find the bug.
 
-let item1Price = 19.99;
-let item2Price = 34.99;
-let orderTotal = item1Price + Item2Price;
-console.log("Total: $" + orderTotal);
+//let item1Price = 19.99;
+//let item2Price = 34.99;
+//let orderTotal = item1Price + Item2Price;
+//console.log("Total: $" + orderTotal);
 
 // What's wrong ↓
 
+// The variable is not written correctly. It shoudl be "item2Price".
+
 // Your fix ↓
 
+let item1Price = 19.99;
+let item2Price = 34.99;
+let orderTotal = item1Price + item2Price;
+console.log("Total: $" + orderTotal);
 
 // ----------------------------------------------------------
 // 🔴 DEBUG 3 — Hard
@@ -43,13 +54,19 @@ console.log("Total: $" + orderTotal);
 // but something is still wrong with it.
 // Find the issue and explain why it's a problem.
 
-var productName = "Headphones";
-var productPrice = 49.99;
-console.log(productName + " — $" + productPrice);
+//var productName = "Headphones";
+//var productPrice = 49.99;
+//console.log(productName + " — $" + productPrice);
 
 // Hint: the code works, but what keyword should you be using instead?
 // Why is the current keyword considered bad practice?
 
 // What's wrong ↓
 
+//We no longer use "var" to declare variables because it has some issues with scope and it can lead to bugs.
+
 // Your fix ↓
+
+const productName = "Headphones";
+const productPrice = 49.99;
+console.log(productName + " — $" + productPrice);

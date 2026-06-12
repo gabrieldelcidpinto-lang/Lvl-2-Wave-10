@@ -55,26 +55,26 @@ const testInputs = {
 //
 // Test with all four username test inputs. Log each result.
 
-function isValidUsername(random) {
-  if (typeof random !== "string") {
+function isValidUsername(username) {
+  if (typeof username !== "string") {
     return { valid: false, message: "Username should be a string" };
   }
-  if (random.length < 3) {
+  if (username.length < 3) {
     return {
       valid: false,
-      message: `Username must be at least 3 characters long (got ${random.length})`,
+      message: `Username must be at least 3 characters long (got ${username.length})`,
     };
   }
-  if (random.length > 20) {
+  if (username.length > 20) {
     return {
       valid: false,
-      message: `Username must be at least 20 characters or fewer (got ${random.length})`,
+      message: `Username must be at least 20 characters or fewer (got ${username.length})`,
     };
   }
-  if (random.includes(" ")) {
+  if (username.includes(" ")) {
     return { valid: false, message: "Username cannot have spaces" };
   }
-  return { valid: true, message: `${random} is a valid username` };
+  return { valid: true, message: `${username} is a valid username` };
 }
 
 console.log("--- Task 1: Username Validation ---");
@@ -160,8 +160,31 @@ console.log(isValidEmail(testInputs.noDomainEmail));
 // Write a comment: why use Number() instead of parseInt() here?
 
 function isValidAge(ageInput) {
-  // your code here
-}
+  const age = Number(ageInput);
+  if (isNaN(age)){
+    return {
+      valid: false,
+      message: `${ageInput} is not a valid number`
+    }
+  }
+  if (age < 13) {
+    return {
+      valid: false,
+      message: `Age must be at least 13 (got ${age})`
+    }
+  }
+  if (age > 120) {
+      return {
+        valid: false,
+        message: `Age must be 120 or below (got ${age})`
+      }
+    }
+      return {
+        valid: true,
+        age,
+        message: `Valid age: ${age}`
+      }
+    }
 
 console.log("\n--- Task 3: Age Validation ---");
 // your code here

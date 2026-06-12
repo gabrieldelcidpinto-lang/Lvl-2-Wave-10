@@ -184,3 +184,4 @@ const currentYear = 2026;
 let yearsRunning = currentYear - startYear;
 
 console.log(appName + " has been running for " + yearsRunning + " years.");
+

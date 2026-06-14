@@ -32,6 +32,14 @@
 // Log: "📚 " + className
 // Log: "Students enrolled: " + studentNames.length
 
+const className = "JavaScript Fundamentals"; //This value will not change
+const passingScore = 60; //This value will not change
+let studentNames = ["Alice", "Bob", "George", "John", "Scott", "Jaylen"]; //If we change any value withing the variable
+let studentScores = [74, 58, 92, 65, 81, 47];
+
+console.log(`📚 ${className}`);
+console.log(`Students enrolled: ${studentNames.length}`);
+
 // ----------------------------------------------------------
 // TASK 2 — Access and display by index
 // ----------------------------------------------------------
@@ -42,6 +50,11 @@
 //
 // Then log the score of the THIRD student (index 2).
 
+console.log(`First student: ${studentNames[0]} - ${studentScores[0]}`);
+console.log(`Last student: ${studentNames[studentNames.length - 1]} - ${studentScores[studentScores.length - 1]}`);
+
+console.log(`Third student score : ${studentScores[2]}`);
+
 // ----------------------------------------------------------
 // TASK 3 — Update a score
 // ----------------------------------------------------------
@@ -50,6 +63,11 @@
 //
 // Log: "Updated score for " + studentNames[3] + ": " + studentScores[3]
 // Log the full studentScores array to confirm the change.
+
+studentScores[3] = 72;
+
+console.log(`Update score for ${studentNames[3]}: ${studentScores[3]}`);
+console.log(studentScores);
 
 // ----------------------------------------------------------
 // TASK 4 — Loop and display the full class
@@ -62,6 +80,10 @@
 //   1. [name] → [score]
 //   2. [name] → [score]
 //   ...
+
+for (i = 0; i < studentNames.length; i++) {
+    console.log(`${i+1}. ${studentNames[i]} → ${studentScores[i]}`);
+}
 
 // ----------------------------------------------------------
 // TASK 5 — Calculate class stats
@@ -89,6 +111,39 @@
 //   Log: "Lowest score:  " + lowScore
 //   Log: "Passed: " + passCount + " | Failed: " + failCount
 
+let totalScore = 0;
+let highScore = 0;
+let lowScore = studentScores[0];
+let passCount = 0;
+let failCount = 0;
+
+for(let i = 0; i < studentScores.length; i++) {
+
+    totalScore += studentScores[i]
+
+    if(studentScores[i]> highScore) {
+        highScore = studentScores[i];
+    }
+
+    if (studentScores[i] < lowScore) {
+        lowScore = studentScores[i];
+    }
+
+    if(studentScores[i] >= passingScore){
+        passCount++;
+    } else {
+        failCount++;
+    }
+}
+
+const classAverage = totalScore / studentScores.length;
+
+console.log("📊 Class Stats:");
+console.log(`Average score: ${classAverage}`);
+console.log(`Highest score: ${highScore}`);
+console.log(`Lowest Score: ${lowScore}`);
+console.log(`Passed: ${passCount} | Failed: ${failCount}`);
+
 // ----------------------------------------------------------
 // TASK 6 — Assign letter grades
 // ----------------------------------------------------------
@@ -103,6 +158,26 @@
 //   below 60     → "F"
 //
 // Log: studentNames[i] + ": " + studentScores[i] + " — Grade " + grade
+
+for (let i = 0; i < studentScores.length; i++){
+
+    let grade;
+
+    if (studentScores[i] >= 90){
+        grade = "A";
+    } else if (studentScores[i] >= 80) {
+        grade = "B";
+    } else if (studentScores[i] >= 70) {
+        grade = "C";
+    } else if (studentScores[i] >= 60) {
+        grade = "C";
+    } else {
+        grade = "F";
+    }
+
+console.log(`${studentNames[i]}: ${studentScores[i]} - Grade ${grade}`);
+
+}
 
 // ----------------------------------------------------------
 // TASK 7 — Add and remove students
@@ -120,6 +195,19 @@
 // Store the removed name in a variable and log:
 //   "Student removed: " + removedName
 // Log: "Class size now: " + studentNames.length
+
+studentNames.push("Link");
+studentScores.push(88);
+
+console.log(`New student added: ${studentNames[studentNames.length - 1]}`);
+console.log(`Class size now: ${studentNames.length}`);
+
+const removedName = studentNames.shift(); studentScores.shift();
+
+console.log(`Student removed: ${removedName}`);
+
+console.log(`Class size now: ${studentNames.length}`);
+
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: find the top student

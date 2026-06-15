@@ -223,6 +223,16 @@ console.log(`Class size now: ${studentNames.length}`);
 //   Log: "🏆 Top student: " + studentNames[topStudentIndex]
 //          + " with " + studentScores[topStudentIndex] + " points"
 
+let topStudentIndex = 0;
+
+for(let i = 0 ; i < studentScores.length; i++) {
+    if(studentScores[i] > studentScores[topStudentIndex]) {
+        topStudentIndex = i;
+    }
+}
+
+console.log(`🏆 Top student: ${studentNames[topStudentIndex]} with ${studentScores[topStudentIndex]} points`);
+
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Curved grades
 // ----------------------------------------------------------

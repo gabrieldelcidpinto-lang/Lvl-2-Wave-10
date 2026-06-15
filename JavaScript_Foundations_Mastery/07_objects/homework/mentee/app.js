@@ -40,6 +40,54 @@
 //
 // Log: "📦 Inventory loaded: " + inventory.length + " products"
 
+const inventory = [
+    {
+        id: 1,
+        name: "Monitor",
+        category: "Electronics",
+        price: 299,
+        stock: 10,
+        isAvailable: true
+    },
+
+    {
+        id: 2,
+        name: "Keyboard",
+        categorie: "Electronics",
+        price: 15,
+        stock: 0,
+        isAvailable: false
+    },
+
+    {
+        id: 3,
+        name: "Beans",
+        categorie: "Food",
+        price: 3,
+        stock: 18,
+        isAvailable: true
+    },
+
+    {
+        id: 4,
+        name: "Shorts",
+        categorie: "Clothes",
+        price: 22,
+        stock: 30,
+        isAvailable: true
+    },
+
+    {
+        id: 5,
+        name: "LOTR",
+        categorie: "Book",
+        price: 45,
+        stock: 5,
+        isAvailable: true
+    }
+]
+
+console.log(`Inventory loaded: ${inventory.length} products`);
 // ----------------------------------------------------------
 // TASK 2 — Display all products
 // ----------------------------------------------------------
@@ -50,6 +98,22 @@
 //   + " | $" + inventory[i].price
 //   + " | Stock: " + inventory[i].stock
 //   + " | " + (inventory[i].isAvailable ? "✅ Available" : "❌ Out of stock")
+
+for (let i = 0; i < inventory.length; i++) {
+    console.log(`# ${inventory[i].id} ${inventory[i].name}`);
+}
+
+for (let i = 0; i < inventory.length; i++) {
+    console.log(`| $${inventory[i].price}`);
+}
+
+for (let i = 0; i < inventory.length; i++) {
+    console.log(`| Stock ${inventory[i].stock}`);
+}
+
+for (let i = 0; i < inventory.length; i++) {
+    console.log(`| ${inventory[i].isAvailable ? "✅ Available" : "❌ Out of stock"}`);
+}
 
 // ----------------------------------------------------------
 // TASK 3 — Calculate inventory stats
@@ -74,6 +138,26 @@
 //   "❌ Out of stock: "          + outOfStockCount + " product(s)"
 //   "⚠️  Low stock: "             + lowStockCount   + " product(s)"
 
+let totalValue = 0;
+let totalItems = 0;
+let outOfStockCount = 0;
+let lowStockCount = 0;
+const lowStockThreshold = 5;
+
+for (let i = 0; i < inventory.length; i++) {
+    totalValue += inventory[i].price * inventory[i].stock
+    totalItems += inventory[i].stock
+    if (inventory[i].stock === 0) {
+        outOfStockCount++;
+    } else if (inventory[i].stock < lowStockThreshold) {
+        lowStockCount++
+    }
+}
+
+console.log(`💰 Total inventory value: $${totalValue}`);
+console.log(`📦 Total items in stock: ${totalItems}`);
+console.log(`❌ Out of stock: ${outOfStockCount} product(s)`);
+console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 // ----------------------------------------------------------
 // TASK 4 — Find products by category
 // ----------------------------------------------------------

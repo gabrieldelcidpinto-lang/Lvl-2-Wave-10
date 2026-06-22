@@ -53,7 +53,7 @@ const inventory = [
     {
         id: 2,
         name: "Keyboard",
-        categorie: "Electronics",
+        category: "Electronics",
         price: 15,
         stock: 0,
         isAvailable: false
@@ -62,7 +62,7 @@ const inventory = [
     {
         id: 3,
         name: "Beans",
-        categorie: "Food",
+        category: "Food",
         price: 3,
         stock: 18,
         isAvailable: true
@@ -71,7 +71,7 @@ const inventory = [
     {
         id: 4,
         name: "Shorts",
-        categorie: "Clothes",
+        category: "Clothes",
         price: 22,
         stock: 30,
         isAvailable: true
@@ -80,9 +80,9 @@ const inventory = [
     {
         id: 5,
         name: "LOTR",
-        categorie: "Book",
+        category: "Book",
         price: 45,
-        stock: 5,
+        stock: 4,
         isAvailable: true
     }
 ]
@@ -172,6 +172,17 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 // After the loop:
 //   Log: "Found " + found + " product(s) in " + searchCategory
 
+const searchCategory = "Electronics";
+let found = 0;
+
+for (let i = 0; i < inventory.length; i++) {
+    if (inventory[i].category === searchCategory) {
+        found++;
+        console.log(`🔍 ${inventory[i].name} — $${inventory[i].price}`);
+    }
+}
+
+console.log(`Found ${found} product(s) in ${searchCategory}`);
 // ----------------------------------------------------------
 // TASK 5 — Apply a sale discount
 // ----------------------------------------------------------
@@ -188,6 +199,22 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 //
 // After the loop, log the full inventory array to see updated prices.
 
+const discountRate = 0.15;
+
+for (let i = 0; i < inventory.length; i++){
+    if (inventory[i].category === "Electronics"){
+
+        const discountAmount = inventory[i].price * discountRate;
+
+        inventory[i].price -= discountAmount;
+
+        inventory[i].price = Math.round(inventory[i].price * 100) / 100;
+    }
+        console.log(`🏷️ ${inventory[i].name} discounted to $${inventory[i].price}`);
+}
+
+console.log(inventory);
+
 // ----------------------------------------------------------
 // TASK 6 — Restock low inventory
 // ----------------------------------------------------------
@@ -202,6 +229,17 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 //   ELSE IF stock < 5:
 //     - Add 20 to inventory[i].stock
 //     - Log: "📦 Restock: " + inventory[i].name + " → " + inventory[i].stock + " units"
+ 
+for (let i = 0; i < inventory.length; i++){
+    if (inventory[i].stock === 0) {
+        inventory[i].stock += 50;
+        inventory[i].isAvailable = true;
+        console.log(`🚚 Emergency restock: ${inventory[i].name} → ${inventory[i].stock} units`);
+    } else if (inventory[i].stock < 5) {
+        inventory[i].stock += 20;
+        console.log(`📦 Restock: ${inventory[i].name} → ${inventory[i].stock} units`);
+    }
+}
 
 // ----------------------------------------------------------
 // TASK 7 — Access nested data
@@ -217,6 +255,14 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 // After adding, write a for loop that logs:
 //   inventory[i].name + " supplied by " + inventory[i].supplier.name
 //   + " (" + inventory[i].supplier.country + ")"
+
+for (let i = 0; i < inventory.length; i++){
+    inventory[i].supplier = {
+    name: "Bob",
+    country: "Canada"
+    }
+    console.log (`${inventory[i].name} supplied by ${inventory[i].supplier.name} (${inventory[i].supplier.country})`);
+}
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: most valuable product
@@ -236,6 +282,21 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 //   Log: "🏆 Most valuable: " + top.name
 //        + " | $" + top.price + " × " + top.stock
 //        + " units = $" + (top.price * top.stock)
+
+let topValueIndex = 0;
+
+for (let i = 0; i < inventory.length; i++) {
+    const currentValue = inventory[i].price * inventory[i].stock;
+    const topValue = inventory[topValueIndex].price * inventory[topValueIndex].stock;
+
+    if (currentValue > topValue) {
+        topValueIndex = i;
+    }
+}
+
+const topProduct = inventory[topValueIndex]
+
+console.log(`Most Valuable: ${topProduct.name} | $${topProduct.price} x ${topProduct.stock} units = $${(topProduct.price * topProduct.stock)}`);
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Category summary report
@@ -260,3 +321,6 @@ console.log(`⚠️ Low stock: ${lowStockCount} product(s)`);
 //
 // Hint: declare count, stock, value inside the OUTER loop
 // so they reset automatically on each category iteration.
+
+// Example structure:
+// { name: "Laptop", category: "Electronics", price: 1000, stock: 5 }

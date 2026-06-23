@@ -82,6 +82,10 @@ const orders = [
 //   + " | $" + order.total
 //   + " | " + order.status.toUpperCase()
 
+orders.forEach(function(order) {
+  console.log(`#${order.id} | ${order.customer} | $${order.total} | ${order.status.toUpperCase()}`);
+});
+
 // ----------------------------------------------------------
 // TASK 2 — Build receipt strings (map)
 // ----------------------------------------------------------
@@ -93,6 +97,14 @@ const orders = [
 // Log receipts.length to confirm it matches orders.length.
 // Use forEach on receipts to log each one.
 
+const receipts = orders.map(order => `Order #${order.id} - ${order.customer} -$${order.total} (${order.items} item(s))`);
+
+console.log(receipts.length);
+
+receipts.forEach(function(receipt){
+  console.log(receipts);
+});
+
 // ----------------------------------------------------------
 // TASK 3 — Build order summary objects (map)
 // ----------------------------------------------------------
@@ -101,6 +113,14 @@ const orders = [
 //   { id: order.id, customer: order.customer, total: order.total }
 //
 // Log summaries.
+
+const summaries = orders.map(order => ({
+  id: order.id,
+  customer: order.customer,
+  total: order.total
+}));
+
+console.log(summaries);
 
 // ----------------------------------------------------------
 // TASK 4 — Filter by status (filter)
@@ -114,6 +134,23 @@ const orders = [
 //   "Pending:   " + pendingOrders.length
 //   "Cancelled: " + cancelledOrders.length
 
+const deliveredOrders = orders.filter(function(order){
+  return order.status === "delivered";
+     
+});
+
+const pendingOrders = orders.filter(function(order){
+  return order.status === "pending";
+});
+
+const cancelledOrders = orders.filter(function(order){
+  return order.status === "cancelled";
+});
+
+console.log(`Delivered: ${deliveredOrders.length}`);
+console.log(`Pending: ${pendingOrders.length}`);
+console.log(`Cancelled: ${cancelledOrders.length}`);
+
 // ----------------------------------------------------------
 // TASK 5 — High value orders (filter + map chained)
 // ----------------------------------------------------------
@@ -122,6 +159,16 @@ const orders = [
 // Store the result in highValueCustomers.
 //
 // Log: "High value customers: " + highValueCustomers
+
+const highValuCustomers = orders
+.filter(function(order){
+  return order.total > 100;
+})
+.map(function(order){
+  return order.customer;
+});
+
+console.log(`High value customers: ${highValuCustomers}`);
 
 // ----------------------------------------------------------
 // TASK 6 — Find a specific order (find)
@@ -135,23 +182,65 @@ const orders = [
 // Log missingOrder.
 // Write a comment: what does find return when nothing matches?
 
+const foundOrder = orders.find(function(order){
+  return order.id === 1005;
+});
+
+console.log(`Found: ${foundOrder.customer} -$${foundOrder.total}`);
+
+const missingOrder = orders.find(function(order){
+  return order.id === 9999;
+});
+
+console.log(missingOrder); //It returns "undefined"
+
 // ----------------------------------------------------------
 // TASK 7 — Ask questions about the data (some + every)
 // ----------------------------------------------------------
 // Write your prediction as a comment BEFORE each one, then run.
 //
 // Use some  → is there at least one priority order?
-//   Log: "Has priority order: " + result     // prediction:
-//
+//   Log: "Has priority order: " + result     // prediction: true because there are more than one priority order
+
+const priority = orders.some(function(order){
+  return order.isPriority === true;
+});
+
+console.log(`Has priority order: ${priority}`);
+
 // Use some  → is there at least one order over $300?
-//   Log: "Has $300+ order: " + result        // prediction:
-//
+//   Log: "Has $300+ order: " + result        // prediction: true, only one persone has an order of > 300$
+
+const overPrice = orders.some(function(order){
+  return order.total > 300;
+});
+
+console.log(`Has $300 order: ${overPrice}`);
+
+
 // Use every → are ALL orders either delivered or pending?
-//   Log: "All active: " + result             // prediction:
-//
+//   Log: "All active: " + result             // prediction: false because we have a cancelled ordered
+
+const orderStatus = orders.every(function(order){
+  return order.status === "delivered" ||
+          order.status === "pending";
+});
+
+console.log(`All activites: ${orderStatus}`);
+
 // Use every → do ALL priority orders have more than 1 item?
 //   Hint: filter for isPriority first, then chain every
-//   Log: "All priority multi-item: " + result // prediction:
+//   Log: "All priority multi-item: " + result // prediction: false, some priority orders only have 1 item
+
+const multiPriority = orders
+.filter(function(order){
+  return order.isPriority === true;
+})
+.every(function(order){
+  return order.items > 1;
+});
+
+console.log(`All priority multi-item: ${multiPriority}`);
 
 // ----------------------------------------------------------
 // TASK 8 — Calculate totals (reduce)

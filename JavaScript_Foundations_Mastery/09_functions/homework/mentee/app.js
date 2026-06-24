@@ -82,6 +82,20 @@ const users = [
 // Call it twice with different data. Log both results.
 // Write a comment: why is isPremium = false a good default here?
 
+function createUser(username, email, age, isPremium = false){
+  return {
+    id: Date.now(),
+    username,
+    email,
+    age,
+    isPremium,
+    loginCount: 0
+  };
+}
+
+console.log(createUser("Bob", "bob@email.com", 25,));
+console.log(createUser("John", "john@email.com", 32));
+
 // ----------------------------------------------------------
 // TASK 2 — isValidUser  [FUNCTION EXPRESSION]
 // ----------------------------------------------------------
@@ -92,7 +106,13 @@ const users = [
 //   user.username.length > 0
 //   user.email.length > 0
 //   user.age >= 13
-//
+
+const isValidUser = function(user) {
+  return user.username.length > 0 && 
+  user.email.length > 0 && 
+  user.age >= 13;
+};
+
 // Use && to combine all three in a single return statement.
 //
 // Use forEach with an ANONYMOUS function callback to test
@@ -100,9 +120,15 @@ const users = [
 //   users.forEach(function(user) {
 //     console.log(user.username + " valid: " + isValidUser(user));
 //   });
-//
+
+users.forEach(function(user){
+  console.log(`${user.username} valid: ${isValidUser}`);
+});
+
 // Write a comment: why is isValidUser a function EXPRESSION
 // instead of a DECLARATION here?
+
+//Because it is being stored inside a variable
 
 // ----------------------------------------------------------
 // TASK 3 — formatUserDisplay  [ARROW FUNCTION + TERNARY]
@@ -115,14 +141,20 @@ const users = [
 //   user.username + " | " + user.email
 //   + " | " + (user.isPremium ? "⭐ Premium" : "Free")
 //   + " | Age: " + user.age
-//
+
+const formatUserDisplay = user => `${user.username} | ${user.email} | ${user.isPremium ? "⭐ Premium" : "Free"} | Age: ${user.age}`;
+
 // Pass formatUserDisplay directly (no () !) to forEach to log
 // every user's display string:
 //   users.forEach(formatUserDisplay — but this would only receive
 //   the user, so wrap it:
 //   users.forEach(user => console.log(formatUserDisplay(user)));
-//
+
+users.forEach(user => console.log(formatUserDisplay(user)));
+
 // Write a comment: why is an arrow function a good fit here?
+
+//Because it is the shortest syntax available to get the result we want, It only has 1 parameter and a single expression to return
 
 // ----------------------------------------------------------
 // TASK 4 — getUserById  [FUNCTION DECLARATION + TERNARY]
@@ -136,6 +168,15 @@ const users = [
 //
 // Test with id 3 (should find Zoe) and id 99 (should return null).
 // Log both results.
+
+function getUserById (userList, id) {
+  const found = userList.find(user => user.id === id);
+
+  return found ? found : null;
+}
+
+console.log(getUserById(users, 3));
+console.log(getUserById(users, 99));
 
 // ----------------------------------------------------------
 // TASK 5 — filterByAge  [FUNCTION EXPRESSION + DEFAULT PARAM]

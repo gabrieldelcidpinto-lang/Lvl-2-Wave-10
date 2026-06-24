@@ -258,6 +258,22 @@ console.log(`All priority multi-item: ${multiPriority}`);
 //   const averageOrder = totalRevenue / orders.length
 //   Log: "Average order value: $" + averageOrder
 
+const totalRevenue = orders.reduce(function(acc,order) {
+  return acc + order.total;
+}, 0);
+
+console.log(`Total revenue: $${totalRevenue}`);
+
+const totalItems = orders.reduce(function(acc, order) {
+  return acc + order.items;
+},0);
+
+console.log(`Total items orderd: ${totalItems}`);
+
+const averageOrder = (totalRevenue / orders.length).toFixed(2);
+
+console.log(`Average order value: $${averageOrder}`);
+
 // ----------------------------------------------------------
 // TASK 9 — Connect the dots (filter + reduce)
 // ----------------------------------------------------------
@@ -266,14 +282,34 @@ console.log(`All priority multi-item: ${multiPriority}`);
 //   Step 2: reduce to sum their totals
 //   Store in deliveredRevenue.
 //   Log: "Delivered revenue: $" + deliveredRevenue
-//
+
+const deliveredRevenue = orders
+.filter(function(order){
+  return order.status === "delivered";
+})
+.reduce(function(acc,order){
+  return acc + order.total;
+},0);
+
+console.log(`Delivered revenue: $${deliveredRevenue}`);
+
 // Calculate the revenue from PENDING orders only.
 //   Same approach. Store in pendingRevenue.
 //   Log: "Pending revenue: $" + pendingRevenue
-//
 // Then log:
 //   "Unconfirmed revenue: $" + pendingRevenue
 //   (This is money that hasn't been secured yet)
+
+const pendingRevenue = orders
+.filter(function(order){
+  return order.status === "pending";
+})
+.reduce(function(acc,order){
+  return acc + order.total;
+},0);
+
+console.log(`Pending revenue: $${pendingRevenue}`);
+console.log(`Unconfirmed revenue: $${pendingRevenue}`);
 
 // ----------------------------------------------------------
 // TASK 10 — Full pipeline (all methods)
@@ -282,22 +318,43 @@ console.log(`All priority multi-item: ${multiPriority}`);
 //
 // Step 1: filter orders where isPriority is true
 //         → store in priorityOrders
-//
+
+const priorityOrders = orders.filter(function(order){
+  return order.isPriority = true;
+});
+
 // Step 2: use every on priorityOrders to check if ALL
 //         priority orders have been delivered
 //         → store in allPriorityDelivered
 //         → log: "All priority delivered: " + allPriorityDelivered
-//
+
+const allPriorityDelivered = priorityOrders.every(function(order){
+  return order.status === "delivered";
+});
+
+console.log(`All priority delivered: ${allPriorityDelivered}`);
+
 // Step 3: use reduce on priorityOrders to get the
 //         total value of priority orders
 //         → store in priorityRevenue
 //         → log: "Priority revenue: $" + priorityRevenue
-//
+
+const priorityRevenue = priorityOrders.reduce(function(acc,order){
+  return acc + order.total;
+},0);
+
+console.log(`Priority revenue: ${priorityRevenue}`);
+
 // Step 4: use map on priorityOrders to build display strings:
 //         "⚡ #" + order.id + " " + order.customer + " — $" + order.total
 //         → store in priorityDisplay
-//
+
+const priorityDisplay = priorityOrders.map(order => `⚡ # ${order.id} ${order.customer} -$${order.total}`);
 // Step 5: use forEach on priorityDisplay to log each line
+
+priorityDisplay.forEach(function(order){
+  console.log()
+});
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — Status report object (reduce)

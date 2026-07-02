@@ -188,7 +188,7 @@ function renderBoard(taskList) {
   const inProgress = document.getElementById("list-inprogress");
   const done = document.getElementById("list-done");
 
-  tasklist.forEach(function(task){
+  taskList.forEach(function(task){
     const createCard = createTaskCard(task);
     if (task.status === "todo"){
       todoList.appendChild(createCard);
@@ -296,7 +296,29 @@ function highlightHighPriority() {
 // Watch a new card appear in the To Do column.
 
 function addNewTask(title, assignee, priority = "medium", status = "todo") {
-  // your code here
+  const newTask = {
+    id: Date.now(),
+    title: title,
+    assignee: assignee,
+    priority: priority,
+    status: status,
+  }
+
+  tasks.push(newTask);
+
+  const todoList = document.getElementById("list-todo");
+  const inProgress = document.getElementById("list-inprogress");
+  const done = document.getElementById("list-done");
+  const newCard = createTaskCard(newTask);
+
+  if (newTask.status === "todo") {
+    todoList.appendChild(newCard);
+    } else if (newTask.status === "inprogress") {
+      inProgress.appendChild(newCard);
+      } else {
+    done.appendChild(newCard);
+  }
+
 }
 
 // ----------------------------------------------------------
@@ -316,8 +338,14 @@ function addNewTask(title, assignee, priority = "medium", status = "todo") {
 // each function individually.
 
 function renderAll() {
-  // your code here
+  renderHeader(tasks);
+  renderBoard(tasks);
+  updateCounts(tasks);
+  addRemoveButtons();
+  highlightHighPriority();
 }
+
+renderAll();
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — markComplete
@@ -345,3 +373,11 @@ function renderAll() {
 // ============================================================
 // CALL YOUR FUNCTIONS HERE
 // ============================================================
+
+function markComplete(taskId) {
+  const task = tasks.find((task) => task.id === taskId);
+  if (task) {
+    task.status = "done";
+
+  }
+}

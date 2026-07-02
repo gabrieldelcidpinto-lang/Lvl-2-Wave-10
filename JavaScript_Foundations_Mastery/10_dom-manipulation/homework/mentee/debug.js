@@ -20,8 +20,9 @@ renderBoardTitle();
 
 // What's wrong ↓
 
-// Your fix ↓
 
+
+// Your fix ↓
 
 // ----------------------------------------------------------
 // 🟡 DEBUG 2 — Medium

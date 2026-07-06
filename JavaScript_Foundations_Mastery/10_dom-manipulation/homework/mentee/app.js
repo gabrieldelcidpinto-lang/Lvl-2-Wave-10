@@ -141,7 +141,7 @@ div.classList.add("task-meta");
 
 const prioritySpan = document.createElement("span");
 prioritySpan.textContent = task.priority.toUpperCase();
-prioritySpan.classList.add("priority-high");
+prioritySpan.classList.add("priority-" + task.priority)
 
 const assigneeSpan = document.createElement("span");
 assigneeSpan.textContent = `👤 ${task.assignee}`;
@@ -257,7 +257,7 @@ taskCards.forEach(function(card){
 }
 
 // ----------------------------------------------------------
-// TASK 6 — highlightHighPriority
+// TASK 6 — highlightHigh
 // ----------------------------------------------------------
 // Declare a function called highlightHighPriority.
 //
@@ -305,21 +305,22 @@ function addNewTask(title, assignee, priority = "medium", status = "todo") {
   }
 
   tasks.push(newTask);
-
-  const todoList = document.getElementById("list-todo");
-  const inProgress = document.getElementById("list-inprogress");
-  const done = document.getElementById("list-done");
   const newCard = createTaskCard(newTask);
 
-  if (newTask.status === "todo") {
-    todoList.appendChild(newCard);
-    } else if (newTask.status === "inprogress") {
-      inProgress.appendChild(newCard);
+ 
+
+  if (status === "todo") {
+ const todoList = document.getElementById("list-todo").appendChild(newCard);
+    } else if (status === "inprogress") {
+      const inProgress = document.getElementById("list-inprogress").appendChild(newCard);
       } else {
-    done.appendChild(newCard);
+    const done = document.getElementById("list-done").appendChild(newCard);
   }
 
+  updateCounts(tasks);
+  highlightHighPriority();
 }
+
 
 // ----------------------------------------------------------
 // TASK 8 — Connect the dots: renderAll
@@ -345,7 +346,7 @@ function renderAll() {
   highlightHighPriority();
 }
 
-renderAll();
+
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — markComplete
@@ -381,3 +382,8 @@ function markComplete(taskId) {
 
   }
 }
+
+
+
+renderAll();
+addNewTask("Write unit tests", "Carlos", "high");

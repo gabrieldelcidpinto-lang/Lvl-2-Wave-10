@@ -318,11 +318,20 @@ console.log(formatValidationResult("Password", isValidPassword(testInputs.noUppe
 // log each field result through formatValidationResult.
 
 function validateSignUpForm(formData) {
-  // your code here
-}
+  const results = {
+    username: isValidUsername(formData.username),
+    email: isValidEmail(formData.email),
+    age: isValidAge(formData.age),
+    password: isValidPassword(formData.password)
+  }
+
+  const formValid = Object.values(results).every(r => r.valid);
+
+  return { valid: formValid, results };}
+
 
 console.log("\n--- Task 6: Full Form Validation ---");
-// your code here
+
 
 // ----------------------------------------------------------
 // TASK 7 — cleanFormData

@@ -168,11 +168,40 @@ return(li);
 //   #count-done       → done tasks count
 
 function updateCounts(taskList) {
-  
+
+  const todoTasks = taskList.filter(task => task.status === "todo");
+  const inprogressTasks = taskList.filter(task => task.status === "inprogress");
+  const doneTask = taskList.filter(task => task.status === "done");
+
+  const pendingCount = todoTasks.length + inprogressTasks.length;
+
+  document.getElementById("task-count").textContent = `${taskList.length} tasks`;
+  document.getElementById("completed-count").textContent = `✅${doneTask.length} done`;
+  document.getElementById("pending-count").textContent = `⏳${pendingCount} pending`;
+  document.getElementById("count-todo").textContent = todoTasks.length;
+  document.getElementById("count-inprogress").textContent = inprogressTasks.length;
+  document.getElementById("count-done").textContent = doneTask.length;
+
 }
 
 function renderBoard(taskList) {
-  // your code here
+  document.getElementById("list-todo").innerHTML = "";
+  document.getElementById("list-inprogress").innerHTML = "";
+  document.getElementById("list-done").innerHTML = "";
+
+  taskList.forEach(task => {
+    const card = createTaskCard(task);
+    if(task.status === "todo") {
+      document.getElementById("list-todo").append(card);
+    } else if (task.status === "inprogress") {
+      document.getElementById("list-inprogress").append(card);
+    } else {
+      document.getElementById("list-done").append(card);
+    }
+  });
+
+  updateCounts(taskList);
+
 }
 
 // ----------------------------------------------------------

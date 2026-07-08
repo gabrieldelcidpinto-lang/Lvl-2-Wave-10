@@ -93,52 +93,8 @@ const tasks = [
 //   7. Return the <li>
 
 function createTaskCard(task) {
-const li = document.createElement("li");
-li.classList.add("task-card");
-li.dataset.id = task.id;
-li.dataset.priority = task.priority;
-
-const p = document.createElement("p");
-p.classList.add("task-tile");
-p.textContent = task.title;
-
-const divMeta = document.createElement("div");
-divMeta.classList.add("task-meta");
-
-const spanPriority = document.createElement("span");
-spanPriority.classList.add("priority-" + task.priority);
-spanPriority.textContent = task.priority.toUpperCase();
-
-const spanAssignee = document.createElement("span");
-spanAssignee.textContent = `👤 ${task.assignee}`;
-
-
-divMeta.appendChild(spanPriority);
-divMeta.appendChild(spanAssignee);
-
-const cardActions = document.createElement("div");
-cardActions.classList.add("card-actions");
-
-const completeBtn = document.createElement("btn");
-completeBtn.classList.add("complete-btn");
-completeBtn.textContent = `✅ Complete`;
-
-const removeBtn = document.createElement("btn");
-removeBtn.classList.add("remove-btn");
-removeBtn.textContent = `🗑️ Remove`;
-
-task.status === "done" ? li.classList.add("completed") : null;
-
-li.append(p, divMeta, cardActions);
-
-return(li);
-
+  // your code here
 }
-
-// append() adds at the end 
-// prepend() adds at the start
-// appendChild() adds one at the end
-
 
 // ----------------------------------------------------------
 // TASK 2 — renderBoard + updateCounts
@@ -168,7 +124,7 @@ return(li);
 //   #count-done       → done tasks count
 
 function updateCounts(taskList) {
-  
+  // your code here
 }
 
 function renderBoard(taskList) {

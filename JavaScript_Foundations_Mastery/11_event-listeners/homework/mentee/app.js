@@ -228,11 +228,37 @@ function renderBoard(taskList) {
 //     .addEventListener("click", handleAddTask);
 
 function handleAddTask() {
-  // your code here
+
+  const taskTitle = document.getElementById("task-title-input").value.trim();
+  const taskAssignee = document.getElementById("task-assignee-input").value.trim();
+  const taskPriority = document.getElementById("task-priority-input").value.trim();
+  const statusInput = document.getElementById("task-status-input").value.trim();
+
+  if (taskTitle === ""){
+    console.log("Title is required");
+    return;
+  }
+
+  const newTask = {
+    id: Date.now(),
+    title: taskTitle,
+    assignee: taskAssignee || "Unassigned",
+    priority: taskPriority,
+    status: statusInput,
+  }
+
+  tasks.push(newTask);
+
+  renderBoard(tasks);
+
+  document.getElementById("task-title-input").value = "";
+  document.getElementById("task-assignee-input").value = "";
+  //newTask.classList.remove(title, assignee);
 }
 
 // wire up here
-
+document.getElementById("add-task-btn")
+  .addEventListener("click", handleAddTask);
 // ----------------------------------------------------------
 // TASK 4 — handleBoardClick (event delegation for complete + remove)
 // ----------------------------------------------------------
@@ -271,11 +297,31 @@ function handleAddTask() {
 // Write a comment: why use .closest() instead of event.target directly?
 
 function handleBoardClick(event) {
-  // your code here
+  const target = event.target;
+  const taskCard = target.closest(".task-card");
+    if (!taskCard){
+      return;
+    }
+  const taskId = parseInt(taskCard.dataset.id);
+  const foundTask = tasks.find(task => task.id === taskId);
+
+  if (target.classList.contains("complete-btn")){
+    foundTask.status = "done"
+    taskCard.classList.add("completed")
+    document.getElementById("list-done").appendChild(taskCard)
+    updateCounts(tasks)
+  };
+
+  if (target.classList.contains("remove-btn")){
+    const index = tasks.findIndex(t => t.id === taskId)
+      tasks.splice(index, 1);
+      taskCard.remove()
+      updateCounts(tasks)
+  };
 }
 
 // wire up here
-
+document.querySelector(".board").addEventListener("click", handleBoardClick);
 // ----------------------------------------------------------
 // TASK 5 — handleFilterClick (filter buttons)
 // ----------------------------------------------------------
@@ -307,7 +353,6 @@ function handleBoardClick(event) {
 // individual listeners on each button?
 
 function handleFilterClick(event) {
-  // your code here
 }
 
 // wire up here

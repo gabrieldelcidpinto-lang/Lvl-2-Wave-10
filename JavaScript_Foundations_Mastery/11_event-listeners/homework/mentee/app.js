@@ -98,6 +98,8 @@ li.classList.add("task-card");
 li.dataset.id = task.id;
 li.dataset.priority = task.priority;
 
+
+
 const p = document.createElement("p");
 p.classList.add("task-tile");
 p.textContent = task.title;
@@ -231,8 +233,8 @@ function handleAddTask() {
 
   const taskTitle = document.getElementById("task-title-input").value.trim();
   const taskAssignee = document.getElementById("task-assignee-input").value.trim();
-  const taskPriority = document.getElementById("task-priority-input").value.trim();
-  const statusInput = document.getElementById("task-status-input").value.trim();
+  const taskPriority = document.getElementById("task-priority-input").value;
+  const statusInput = document.getElementById("task-status-input").value;
 
   if (taskTitle === ""){
     console.log("Title is required");
@@ -241,7 +243,7 @@ function handleAddTask() {
 
   const newTask = {
     id: Date.now(),
-    title: taskTitle,
+    title: taskTitle, 
     assignee: taskAssignee || "Unassigned",
     priority: taskPriority,
     status: statusInput,
@@ -358,19 +360,27 @@ function handleFilterClick(event) {
     return("clicked something that's not a button")
   };
 
- const filterBtn = document.querySelectorAll(".filter-btn");
+ const filterBtn = document.querySelectorAll(".filter-btn").forEach((btn)=>{
+  btn.classList.remove("active");
+ });
 
-filterBtn.forEach(btn => {
-  btn.classList.remove("active")
-});
+ event.target.classList("active");
 
- event.target.classList.add("active")
+ document.querySelectorAll(".task-card").forEach((card)=>{
+  if (filter === "all" || card.dataset.priority === filter){
+    card.classList.remove("hidden");
+  } else {
+ card.classList.add("hidden");
+  }
+ })
 
+
+ 
  
 }
 
 // wire up here
-
+document.querySelector(".header-right").addEventListener("click", handleFilterClick);
 // ----------------------------------------------------------
 // TASK 6 — handleKeyDown (keyboard shortcuts)
 // ----------------------------------------------------------

@@ -101,7 +101,7 @@ li.dataset.priority = task.priority;
 
 
 const p = document.createElement("p");
-p.classList.add("task-tile");
+p.classList.add("task-title");
 p.textContent = task.title;
 
 const divMeta = document.createElement("div");
@@ -121,19 +121,21 @@ divMeta.appendChild(spanAssignee);
 const cardActions = document.createElement("div");
 cardActions.classList.add("card-actions");
 
-const completeBtn = document.createElement("btn");
+const completeBtn = document.createElement("button");
 completeBtn.classList.add("complete-btn");
 completeBtn.textContent = `✅ Complete`;
 
-const removeBtn = document.createElement("btn");
+const removeBtn = document.createElement("button");
 removeBtn.classList.add("remove-btn");
 removeBtn.textContent = `🗑️ Remove`;
+
+cardActions.append(completeBtn, removeBtn);
 
 task.status === "done" ? li.classList.add("completed") : null;
 
 li.append(p, divMeta, cardActions);
 
-return(li);
+return li;
 
 }
 
@@ -364,10 +366,10 @@ function handleFilterClick(event) {
   btn.classList.remove("active");
  });
 
- event.target.classList("active");
+ event.target.classList.add("active");
 
  document.querySelectorAll(".task-card").forEach((card)=>{
-  if (filter === "all" || card.dataset.priority === filter){
+  if (filterValue === "all" || card.dataset.priority === filterValue){
     card.classList.remove("hidden");
   } else {
  card.classList.add("hidden");
@@ -399,10 +401,19 @@ document.querySelector(".header-right").addEventListener("click", handleFilterCl
 // Wire it up to document.
 
 function handleKeyDown(event) {
-  // your code here
+ if (event.key === "Escape") {
+  document.getElementById("task-title-input").value = "";
+  document.getElementById("task-assignee-input").value = ""; 
+  console.log("Inputs cleared");
+}
+
+if (event.key === "Enter" && event.target.id === "task-title-input") {
+  handleAddTask();
+}
 }
 
 // wire up here
+document.addEventListener("keydown", handleKeyDown);
 
 // ----------------------------------------------------------
 // TASK 7 — Connect the dots: init
@@ -412,9 +423,6 @@ function handleKeyDown(event) {
 //
 // Call init() at the bottom.
 
-function init() {
-  // your code here
-}
 
 // ----------------------------------------------------------
 // ⭐ STRETCH GOAL — live search
@@ -439,12 +447,31 @@ function init() {
 //     .addEventListener("input", handleSearch);
 //
 // Write a comment: why use "input" and not "change" for live search?
-
+function handleSearch(event){
+ const query = event.target.value.toLowerCase().trim();
+ const allTask = document.querySelectorAll(".task-card");
+ 
+ allTask.forEach((card) => {
+  const titleText = card.querySelector(".task-title").textContent.toLowerCase();
+  if (titleText.includes(query)) {
+    card.classList.remove("hidden");
+   } else {
+      card.classList.add("hidden");
+    }
+  })
+ }
 // ============================================================
 // WIRE UP ALL LISTENERS (above init)
 // ============================================================
-
+ document.getElementById("search-input")
+ .addEventListener("input", handleSearch);  
 // ============================================================
 // START
 // ============================================================
+
+function init() {
+  renderBoard(tasks);
+
+
+}
 init();
